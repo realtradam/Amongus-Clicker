@@ -3,7 +3,7 @@
  <div class="main_container" @click='musicPlay'>
 	<div id="bigamogus" ref="bigamogus" title="The Big Amogus" @click="speedUpDance($event)">
 
-	 <Dollar ref='bill0'/>
+	 <!--Dollar ref='bill0'/>
 	 <Dollar ref='bill1'/>
 	 <Dollar ref='bill2'/>
 	 <Dollar ref='bill3'/>
@@ -18,7 +18,7 @@
 	 <Dollar ref='bill12'/>
 	 <Dollar ref='bill13'/>
 	 <Dollar ref='bill14'/>
-	 <Dollar ref='bill15'/>
+	 <Dollar ref='bill15'/-->
 	</div>
 	<div class="options_container">
 	<div>
@@ -65,6 +65,7 @@
 
 <script>
 import Dollar from './components/DollarEffect.vue'
+import { createApp } from 'vue'
 
 export default {
  name: 'App',
@@ -75,14 +76,14 @@ export default {
 	return {
 		amogus_speed: 0.0,
 
-		amogus_min: 1.0,
+		amogus_min: 0.0,//1.0,
 
-		amogus_motivate: 0.1,
+		amogus_motivate: 35,//0.1,
 		amogus_motivate_cost: 2.0,
 		amogus_motivate_cost_inflation: 1.5,
 		amogus_motivate_improvement: 0.05,
 
-		amogus_decay: 1,
+		amogus_decay: 0.1,//1,
 		amogus_decay_cost: 5.0,
 		amogus_decay_cost_inflation: 4.0,
 		amogus_decay_improvement: 1.6,
@@ -100,6 +101,7 @@ export default {
 		amogus_frame_buffer: 0,
 		amogus_dance_routines: 0,
 		amogus_first_click: true,
+		dollar_visuals: [],
 		money: 0,
 		x: 0,
 		y: 0,
@@ -161,12 +163,23 @@ export default {
 		}
 	},
 	renderDollar(x, y){
-	 	for(let dollar in [0,1,2,3,4,5,6,7,8,9,10,11]){
-			let temp = this.$refs['bill' + (parseInt(dollar) + 1)].reset(x,y)
-			if(temp != 'activated'){
-			 break
+		find: {
+		 	for(let dollar in this.dollar_visuals){
+				let temp = this.dollar_visuals[dollar].reset(x,y)
+				if(temp != 'activated'){
+					break find;
+				}
 			}
+			var among = this.$refs["bigamogus"];
+			//dollar.$mount();
+			const tempelem = document.createElement('div');
+			among.appendChild(tempelem);
+			var dollar = createApp(Dollar).mount(tempelem);
+			//tempelem.appendChild(dollar.$el);
+			dollar.reset(x,y);
+			this.dollar_visuals.push(dollar);
 		}
+		console.log(this.dollar_visuals.length);
 	},
 	amogusResolveBuffer(){
 	 while(this.amogus_frame_buffer >= 1.0){
@@ -193,7 +206,6 @@ export default {
 			  }
 			  vm.amogus_frame_buffer += (vm.amogus_speed * 0.1);
 				vm.amogusResolveBuffer();
-				//console.log("buffr: " + vm.amogus_frame_buffer + "\nspeed: " + vm.amogus_speed);
 			  }, (1/60) * 1000);
 		  },
  computed: {
