@@ -1,33 +1,19 @@
 <template>
- <h1 class='header_intro' ref='header_intro'>Click the Amogus</h1>
+<header><a href="https://github.com/realtradam/Amongus-Clicker"><div></div><p>View Source Code</p></a></header>
+ <h1 class='header_intro' ref='header_intro'>ඞ  Click the Amogus to Make Him Dance ඞ </h1>
+ <h2>For each dance complete, get cash money!</h2>
  <div class="main_container" @click='musicPlay'>
 	<div id="bigamogus" ref="bigamogus" title="The Big Amogus" @click="speedUpDance($event)">
 
-	 <!--Dollar ref='bill0'/>
-	 <Dollar ref='bill1'/>
-	 <Dollar ref='bill2'/>
-	 <Dollar ref='bill3'/>
-	 <Dollar ref='bill4'/>
-	 <Dollar ref='bill5'/>
-	 <Dollar ref='bill6'/>
-	 <Dollar ref='bill7'/>
-	 <Dollar ref='bill8'/>
-	 <Dollar ref='bill9'/>
-	 <Dollar ref='bill10'/>
-	 <Dollar ref='bill11'/>
-	 <Dollar ref='bill12'/>
-	 <Dollar ref='bill13'/>
-	 <Dollar ref='bill14'/>
-	 <Dollar ref='bill15'/-->
 	</div>
 	<div class="options_container">
 	<div>
-	<div style="display:flex;flex-direction:row;justify-content:center;gap:5px;font-size: 30px"><div>Dance Speed:</div><b><div>{{ format(amogusSpeedRounded) }}</div></b></div>
+	<div style="display:flex;flex-direction:row;justify-content:center;gap:5px;font-size: 30px"><div>Dance Speed:</div><b><div>{{ format(round(amogus_speed)) }}</div></b></div>
 	 <p>Hard Earned Cash 💸: ${{ format(round(money)) }}</p>
 	 <p>Dance Moves Completed: <b>{{ format(amogus_dance_routines) }} Times</b></p>
 	 </div>
 	<div class="option">
-		<button class='button' @click="buyMotivate()" :disabled="buyMotivateDisabled">
+		<button class='button improveclicks' @click="buyMotivate()" :disabled="buyMotivateDisabled">
 			<div>Improve Clicks</div>
 			<div>Cost: {{ format(round(amogus_motivate_cost)) }}$</div>
 		</button>
@@ -36,7 +22,7 @@
 		</p>
 	 </div>
 	<div class="option">
-		<button class='button' @click="buyDecay()" :disabled="buyDecayDisabled">
+		<button class='button improvestamina' @click="buyDecay()" :disabled="buyDecayDisabled">
 			<div>Improve Stamina</div>
 			<div>Cost: {{ format(round(amogus_decay_cost)) }}$</div>
 		</button>
@@ -45,7 +31,7 @@
 		</p>
 	</div>
 	<div class="option">
-		<button class='button' @click="buyEarnings()" :disabled="buyEarningsDisabled">
+		<button class='button improveearnings' @click="buyEarnings()" :disabled="buyEarningsDisabled">
 			<div>Improve Earnings</div>
 			<div>Cost: {{ format(round(amogus_earnings_cost)) }}$</div>
 		</button>
@@ -76,14 +62,14 @@ export default {
 	return {
 		amogus_speed: 0.0,
 
-		amogus_min: 0.0,//1.0,
+		amogus_min: 1.0,
 
-		amogus_motivate: 35,//0.1,
+		amogus_motivate: 0.1,
 		amogus_motivate_cost: 2.0,
 		amogus_motivate_cost_inflation: 1.5,
 		amogus_motivate_improvement: 0.05,
 
-		amogus_decay: 0.1,//1,
+		amogus_decay: 1,
 		amogus_decay_cost: 5.0,
 		amogus_decay_cost_inflation: 4.0,
 		amogus_decay_improvement: 1.6,
@@ -209,9 +195,6 @@ export default {
 			  }, (1/60) * 1000);
 		  },
  computed: {
-	amogusSpeedRounded(){
-	 return ((this.amogus_speed).toFixed(2))
-	},
 	buyMotivateDisabled(){
 	 return (this.money < this.amogus_motivate_cost)
 	},
@@ -245,6 +228,7 @@ p {
  text-align: center;
  color: #fff;
  margin-top: 0px;
+ padding: 10px;
  padding-top: 60px;
  background-image: url('./assets/background.png');
  background-size: cover;
@@ -255,10 +239,37 @@ p {
  background-color: rgba(1, 1, 1, 0.35);
  margin: auto;
  width: auto;
- padding: 50px;
+ padding: 20px;
  display: inline-block;
  border: 0px;
  border-radius: 25px;
+}
+header {
+	position: fixed;
+	background-color: black;
+	border-radius: 10px;
+	padding: 10px;
+	top: 15px;
+	left: 15px;
+}
+header a {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	color: white;
+	text-decoration: none;
+	transition-duration: 0.4s;
+}
+header a:hover {
+	color: lightsteelblue;
+	transition-duration: 0.4s;
+}
+header a div {
+	width: 20px;
+	height: 20px;
+	background-size: 20px;
+	background-image: url('./assets/GitHub-Mark-120px-plus.png');
 }
 .options_container {
  background-color: rgba(1, 1, 1, 0.5);
@@ -266,7 +277,7 @@ p {
  width: auto;
  border: 0px;
  border-radius: 25px;
- padding: 30px;
+ padding: 35px;
  display: flex;
  flex-direction: column;
  gap: 30px;
@@ -287,6 +298,7 @@ p {
  border: 0px;
  margin: auto;
  user-select: none;
+ cursor: pointer;
  -webkit-user-select: none;
  -khtml-user-select: none;
  -webkit-touch-callout: none;
@@ -300,7 +312,6 @@ p {
  -webkit-touch-callout: none;
  -moz-user-select: none;
  -o-user-select: none;
- background-color: goldenrod; 
  border: none;
  color: black;
  padding: 16px 32px;
@@ -310,8 +321,9 @@ p {
  font-size: 16px;
  transition-duration: 0.4s;
  cursor: pointer;
- border: 2px solid gold;
- width: 250px;
+ width: 200px;
+ flex-grow: 0;
+ flex-shrink: 0;
 }
 
 .button:hover {
@@ -319,8 +331,34 @@ p {
  color: black;
 }
 
-.button:disabled {
+.improveclicks {
+ background-color: goldenrod; 
+ border: 2px solid gold;
+}
+.improveclicks:disabled {
  background-color: lightgoldenrodyellow;
+ border: 2px solid gold;
+}
+
+.improvestamina {
+ background-color: dodgerblue; 
+ border: 2px solid cyan;
+}
+.improvestamina:disabled {
+ background-color: lightcyan;
+ border: 2px solid cyan;
+}
+
+.improveearnings {
+ background-color: limegreen; 
+ border: 2px solid chartreuse;
+}
+.improveearnings:disabled {
+ background-color: #bbeebb;
+ border: 2px solid chartreuse;
+}
+
+.button:disabled {
  color: darkgray;
  cursor: not-allowed;
 }
