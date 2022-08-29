@@ -1,6 +1,6 @@
 <template>
-<header><a href="https://github.com/realtradam/Amongus-Clicker"><div></div><p>View Source Code</p></a></header>
- <h1 class='header_intro' ref='header_intro'>ඞ  Click the Amogus to Make Him Dance ඞ </h1>
+<header><a href="https://github.com/realtradam/Amongus-Clicker" target="_blank"><div></div><p>View Source Code</p></a></header>
+ <h1 class='header_intro' ref='header_intro'>ඞ  Click the Crewmate to Make Him Dance Faster ඞ </h1>
  <h2>For each dance complete, get cash money!</h2>
  <div class="main_container" @click='musicPlay'>
 	<div id="bigamogus" ref="bigamogus" title="The Big Amogus" @click="speedUpDance($event)">
@@ -60,22 +60,22 @@ export default {
  },
  data() {
 	return {
-		amogus_speed: 0.0,
+		amogus_speed: 0,
 
 		amogus_min: 1.0,
 
 		amogus_motivate: 0.1,
 		amogus_motivate_cost: 2.0,
-		amogus_motivate_cost_inflation: 1.5,
+		amogus_motivate_cost_inflation: 1.3,
 		amogus_motivate_improvement: 0.05,
 
 		amogus_decay: 1,
 		amogus_decay_cost: 5.0,
 		amogus_decay_cost_inflation: 4.0,
-		amogus_decay_improvement: 1.6,
+		amogus_decay_improvement: 1.4,
 		amogus_decay_modifier: 0.005,
 
-		amogus_earnings: 5,
+		amogus_earnings: 2.0,
 		amogus_earnings_cost: 10.0,
 		amogus_earnings_cost_inflation: 5.0,
 		amogus_earnings_improvement: 1.3,
@@ -83,7 +83,9 @@ export default {
 		amogus_width: 298,
 		amogus_height: 298,
 		amogus_frame: 0,
-		amogus_frame_count: 65,
+		//amogus_frame_count: 65,
+		amogus_frame_row: 0,
+		amogus_frame_counts: [18, 24, 21, 24],
 		amogus_frame_buffer: 0,
 		amogus_dance_routines: 0,
 		amogus_first_click: true,
@@ -116,6 +118,7 @@ export default {
 			this.money -= this.amogus_motivate_cost;
 			this.amogus_motivate_cost *= this.amogus_motivate_cost_inflation;
 			this.amogus_motivate += this.amogus_motivate_improvement;
+			this.amogusClipPlay();
 		}
 		//amogus_min_cost
 		//amogus_decay_cost
@@ -125,6 +128,7 @@ export default {
 			this.money -= this.amogus_decay_cost;
 			this.amogus_decay_cost *= this.amogus_decay_cost_inflation;
 			this.amogus_decay *= this.amogus_decay_improvement;
+			this.amogusClipPlay();
 		}
 	},
 	buyEarnings(){
@@ -132,14 +136,16 @@ export default {
 			this.money -= this.amogus_earnings_cost;
 			this.amogus_earnings_cost *= this.amogus_earnings_cost_inflation;
 			this.amogus_earnings *= this.amogus_earnings_improvement;
+			this.amogusClipPlay();
 		}
 	},
 	amogusFrameAdvance(){
 		this.amogus_frame += 1;
-		while(this.amogus_frame > this.amogus_frame_count){
+		while(this.amogus_frame > this.amogus_frame_counts[this.amogus_frame_row]){
 			this.money += Math.random() * (this.amogus_earnings * 1.5 - (this.amogus_earnings * 0.5)) + (this.amogus_earnings * 0.5);
 			this.amogus_dance_routines += 1;
-			this.amogus_frame -= this.amogus_frame_count;
+			this.amogus_frame -= this.amogus_frame_counts[this.amogus_frame_row];
+			this.amogus_frame_row = parseInt(Math.random() * 4);
 			var among = this.$refs["bigamogus"];
 			if(among){
 				this.renderDollar(Math.random() * (this.amogus_height - 100) + (among.offsetLeft - 25),
@@ -165,7 +171,6 @@ export default {
 			dollar.reset(x,y);
 			this.dollar_visuals.push(dollar);
 		}
-		console.log(this.dollar_visuals.length);
 	},
 	amogusResolveBuffer(){
 	 while(this.amogus_frame_buffer >= 1.0){
@@ -208,7 +213,7 @@ export default {
 	 return (this.amogus_twerk_speedup_cost <= this.money)
 	},
 	amogusFramePosition(){
-	 return ((this.amogus_frame * this.amogus_width) + 'px 0px')
+	 return (-(this.amogus_frame * this.amogus_width) + 'px ' + (this.amogus_frame_row * this.amogus_height) + 'px')
 	}
  }
 
