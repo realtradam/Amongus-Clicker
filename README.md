@@ -1,6 +1,6 @@
 # Among Us Themed Clicker Game
 
-Play it [here!](https://imposter.exposed)
+Play it [here!](https://imposter.exposed) ([alternate link](https://amongus-clicker.pages.dev/))
 
 ![amogusdance](https://github.com/realtradam/Amongus-Clicker/blob/master/amogusdance.gif?raw=true)
 
