@@ -2,6 +2,8 @@
 
 Play it [here!](https://imposter.exposed)
 
+![amogusdance](https://github.com/realtradam/Amongus-Clicker/blob/master/amogusdance.gif?raw=true)
+
 ## Project setup
 ```
 yarn install
