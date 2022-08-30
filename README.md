@@ -1,4 +1,4 @@
-# Among Us Themed Autoclicker
+# Among Us Themed Clicker Game
 
 Play it [here!](https://imposter.exposed)
 
