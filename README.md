@@ -1,4 +1,6 @@
-# amogus
+# Among Us Themed Autoclicker
+
+Play it [here!](https://imposter.exposed)
 
 ## Project setup
 ```
@@ -14,6 +16,3 @@ yarn serve
 ```
 yarn build
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
